@@ -137,6 +137,94 @@ This creates:
 
 ---
 
+### Populate the tables
+
+```
+INSERT INTO documents (title, source) VALUES
+('RAG Overview', 'lecture_notes'),
+('PostgreSQL Basics', 'lecture_notes'),
+('FastAPI CRUD Service', 'lab'),
+('SQL Analytics Patterns', 'lab'),
+('Vector Databases Primer', 'reading'),
+('Graph Databases and Neo4j', 'reading');
+```
+
+```
+-- Chunks for RAG Overview
+INSERT INTO chunks (document_id, content, chunk_index)
+SELECT d.id, v.content, v.chunk_index
+FROM documents d
+JOIN (VALUES
+  (0, 'RAG combines retrieval with generation so responses can cite external knowledge.'),
+  (1, 'Typical pipeline: ingest, chunk, embed, retrieve top-k, then generate.'),
+  (2, 'Stable IDs allow chunk text, embeddings, and graphs to reference the same document.'),
+  (3, 'Chunking choices affect retrieval quality and downstream generation.')
+) AS v(chunk_index, content) ON TRUE
+WHERE d.title = 'RAG Overview';
+
+-- Chunks for PostgreSQL Basics
+INSERT INTO chunks (document_id, content, chunk_index)
+SELECT d.id, v.content, v.chunk_index
+FROM documents d
+JOIN (VALUES
+  (0, 'PostgreSQL is a relational database with transactions and constraints.'),
+  (1, 'Primary keys uniquely identify rows; foreign keys enforce relationships.'),
+  (2, 'Indexes speed reads but add overhead to writes.'),
+  (3, 'Use EXPLAIN to understand query plans and performance.')
+) AS v(chunk_index, content) ON TRUE
+WHERE d.title = 'PostgreSQL Basics';
+
+-- Chunks for FastAPI CRUD Service
+INSERT INTO chunks (document_id, content, chunk_index)
+SELECT d.id, v.content, v.chunk_index
+FROM documents d
+JOIN (VALUES
+  (0, 'FastAPI builds APIs with automatic OpenAPI documentation.'),
+  (1, 'CRUD maps HTTP methods to database operations.'),
+  (2, 'Swagger UI enables interactive endpoint testing.'),
+  (3, 'Return stable IDs from create endpoints for linking across systems.')
+) AS v(chunk_index, content) ON TRUE
+WHERE d.title = 'FastAPI CRUD Service';
+
+-- Chunks for SQL Analytics Patterns
+INSERT INTO chunks (document_id, content, chunk_index)
+SELECT d.id, v.content, v.chunk_index
+FROM documents d
+JOIN (VALUES
+  (0, 'Aggregations summarize rows into counts and totals.'),
+  (1, 'GROUP BY creates groups; HAVING filters groups after aggregation.'),
+  (2, 'Window functions compute analytics without collapsing rows.'),
+  (3, 'CTEs improve readability for complex queries.')
+) AS v(chunk_index, content) ON TRUE
+WHERE d.title = 'SQL Analytics Patterns';
+
+-- Chunks for Vector Databases Primer
+INSERT INTO chunks (document_id, content, chunk_index)
+SELECT d.id, v.content, v.chunk_index
+FROM documents d
+JOIN (VALUES
+  (0, 'Vector databases store embeddings for similarity search.'),
+  (1, 'Queries retrieve nearest vectors to approximate semantic similarity.'),
+  (2, 'Metadata filters keep retrieval within scope.'),
+  (3, 'Embeddings can live in a vector store while text remains in PostgreSQL.')
+) AS v(chunk_index, content) ON TRUE
+WHERE d.title = 'Vector Databases Primer';
+
+-- Chunks for Graph Databases and Neo4j
+INSERT INTO chunks (document_id, content, chunk_index)
+SELECT d.id, v.content, v.chunk_index
+FROM documents d
+JOIN (VALUES
+  (0, 'Graph databases store nodes and relationships.'),
+  (1, 'Neo4j uses Cypher for pattern matching and path queries.'),
+  (2, 'Graphs connect documents to entities, citations, and topics.'),
+  (3, 'Keep canonical IDs in PostgreSQL and relationships in the graph.')
+) AS v(chunk_index, content) ON TRUE
+WHERE d.title = 'Graph Databases and Neo4j';
+```
+
+---
+
 ## 6. Configure database password
 
 Open this file in VS Code:
