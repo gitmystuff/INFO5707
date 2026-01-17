@@ -9,7 +9,7 @@ Follow the steps below **in order**.
 
 ## 1. Unzip and open in VS Code
 
-1. Download the starter zip provided by your instructor
+1. Download the starter zip
 2. Unzip it into a folder on your computer
 3. Open **VS Code**
 4. Select **File → Open Folder…**
