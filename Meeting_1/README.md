@@ -298,6 +298,9 @@ Changes made through the API will be reflected in PostgreSQL.
 
   * Command Palette → Python: Select Interpreter → `.venv`
 
+### Permission Policies
+
+* In terminal, run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ---
 
 ## 10. Reset and re-populate the tables
