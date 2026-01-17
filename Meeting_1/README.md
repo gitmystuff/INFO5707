@@ -300,4 +300,23 @@ Changes made through the API will be reflected in PostgreSQL.
 
 ---
 
+## 10. Reset and re-populate the tables
+
+To **wipe all data and re-populate safely**, run this first:
+
+```sql
+TRUNCATE TABLE chunks, documents;
+```
+
+Then re-run your **INSERT statements** for `documents` and `chunks`.
+
+---
+
+## Why this works
+
+* `TRUNCATE` removes **all rows** from the tables
+* It is **much faster** than `DELETE`
+* Table structure, constraints, and indexes remain intact
+* Because `chunks` depends on `documents`, truncating **both at once** avoids foreign-key issues
+
 
